@@ -12,10 +12,13 @@ class Usuario {
         $stmt = $conn->prepare($query);
         $stmt->bindValue(':login', $this->login);
         $stmt->bindValue(':senha', $this->senha);
-        $stmt->execute();            
+        $stmt->execute();  
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);          
 
+        $id = NULL;
         if($stmt->rowCount() > 0)
-            return true;        
+            $id = $resultado['id'];
+        return $id;
     }
 
     public function getLogin() {

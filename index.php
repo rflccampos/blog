@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,14 +14,19 @@
 <body>
 
     <div class="container-fluid">
+        <?php include_once "cabecalho.php"; ?>
         <div class="row">
             <div class="col-12">
                 <ul>
-                    <li>Prefeito de Itapeva perde o posto</li>
-                    <li>Tiroteio em Itapeva</li>
-                    <li>Parque de Diversões Riquinho está na cidade</li>
-                    <li>Polícia Militar faz apreensão de drogas</li>
-                    <li>Veículos são roubados na Vila Nova</li>
+                    <?php
+                        require_once "Models/Post.php";
+                        $posts = new Post();
+                        $posts = $posts->listar();
+                        
+                        foreach($posts as $post) :
+                    ?>
+                            <li><?php echo $post['titulo']; ?></li>                    
+                        <?php endforeach; ?>
                 </ul>
             </div>
         </div>

@@ -1,8 +1,13 @@
 <?php        
+    session_start();    
+
+    if(!isset($_SESSION['login'])) {        
+		header("location: /login.php");
+	}
+
     $url = $_SERVER['REQUEST_URI'];
 	$url_array = explode('/',$url);
-	if(end($url_array) == "logout") {
-        session_start();
+	if(end($url_array) == "logout") {        
         unset($_SESSION['login']);
 		header("location: /login.php");
     }
@@ -20,13 +25,24 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-10">
-                <a href="manterpost.php/add" class="btn btn-secondary">Novo Post</a>
-                <a href="posts.php" class="btn btn-secondary">Editar Post</a>
-                <a href="paineladministrativo.php/logout" class="btn btn-secondary">Logout</a>  
+        <?php include_once "cabecalho.php"; ?>        
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Posts</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/manterpost.php/add">Novo Post</a>
+                        <a class="dropdown-item" href="/posts.php">Editar/Excluir Post</a>                              
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/paineladministrativo.php/logout">Logout</a>
+                </li>
+                </ul>
             </div>
-        </div>
+        </nav>
+        </nav>
     </div>    
     
     <script src="js/jquery-3.4.1.min.js"></script>

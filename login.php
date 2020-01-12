@@ -15,11 +15,14 @@
         $usuario = new Usuario();
         $usuario->setLogin($login);
         $usuario->setSenha($senha);
-        if($usuario->login()) {
+        $id = $usuario->login();
+        if($id != NULL) {
             session_start();
-            $_SESSION['login'] = $login;      
+            $_SESSION['login'] = $login;                  
+            $_SESSION['usr_id'] = $id;
             header("location: /paineladministrativo.php");
-        } else {
+        }
+        else {
             echo "Usuario ou Senha inválidos";
         }
     }
@@ -39,6 +42,7 @@
 <body>
 
     <div class="container-fluid">
+        <?php include_once "cabecalho.php"; ?>
         <div class="row">
             <div class="col-10 offset-1 col-md-6 offset-md-3 mt-4">
                 <form action="login.php" method="post">
